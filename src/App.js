@@ -1,12 +1,15 @@
 import React from 'react';
 import './App.css';
+import Home from './components/home'
+import Header from './components/header'
+import FileUploader from './components/fileUploader'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-
-      </header>
+        <Header/>
+        <FileUploader/>
+        <Home/>
     </div>
   );
 }
