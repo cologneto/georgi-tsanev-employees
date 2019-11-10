@@ -7,6 +7,7 @@ const gripDateCssSelector = '.grip-data-column'
 const FileUploader = () => {
 
     const displayResultsDataGrid = (resultArray) => {
+        console.log(resultArray)
         const lastRow = resultArray[resultArray.length - 1]
         const nodes = document.querySelectorAll(gripDateCssSelector)
 

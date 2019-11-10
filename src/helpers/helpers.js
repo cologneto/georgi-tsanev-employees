@@ -1,6 +1,10 @@
 import RowData from './../models/rowData'
 import ResultData from './../models/resultData'
 
+const separatorDash = "-"
+const separatorSlash = "/"
+
+
 // convert milliseconds to days
 const millisToDays = (millis) => {
     return (millis / (60*60*24*1000)).toFixed();
@@ -31,6 +35,26 @@ const daysTogether = (rowX, rowY) => {
     }
 
     return new ResultData(emplXID, emplYID, projID, millisToDays(endDate - startDate))
+}
+
+const nullToTodayDate = (separator) => {
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1
+
+    var yyyy = today.getFullYear()
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if(separator === "-") {
+        return dd + separator + mm + separator + yyyy;
+    } else {
+        return mm + separator + dd + separator + yyyy
+    }
+
 }
 
 //converting string to date with given format
@@ -64,10 +88,34 @@ const dynamicSort = (property) => {
 // creates an array for each project in the text file
 const makeArraysForEachProject = (dataTable) => {
     // pop the last element, because of the empty last row in the generated file
-    dataTable.pop()
+    console.log(dataTable[dataTable.length - 1]);
+
+    if(dataTable[dataTable.length - 1].dateFrom === undefined){
+        dataTable.pop()
+    }
+
     dataTable.forEach((v) => {
-        v.dateFrom = new Date(stringToDate(v.dateFrom,"mm/dd/yyyy", "/"))
-        v.dateTo   = new Date(stringToDate(v.dateTo,"mm/dd/yyyy", "/"))
+        let separator;
+
+        if(v.dateFrom.indexOf(separatorDash) === -1) {
+            separator = separatorSlash
+        } else {
+            separator = separatorDash
+        }
+
+        console.log(separator)
+        if(v.dateTo.toUpperCase() === "NULL") {
+            v.dateTo = nullToTodayDate(separator)
+            console.log(nullToTodayDate(separator));
+        }
+
+        if(separator === separatorDash) {
+            v.dateTo   = new Date(stringToDate(v.dateTo,"dd-mm-yyyy", "-"))
+            v.dateFrom = new Date(stringToDate(v.dateFrom,"dd-mm-yyyy", "-"))
+        } else {
+            v.dateFrom = new Date(stringToDate(v.dateFrom,"mm/dd/yyyy", "/"))
+            v.dateTo   = new Date(stringToDate(v.dateTo,"mm/dd/yyyy", "/"))
+        }
     })
     const projectIDArr = dataTable.map((v) => v.projectID)
     const unique = [... new Set(projectIDArr)]
