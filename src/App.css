@@ -1,0 +1,41 @@
+h1  {
+    text-align: center;
+    color: white;
+    background-color: gray;
+    padding: 20px 0;
+    width: 70%;
+    margin: auto;
+}
+
+.input-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.input-container input {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.output {
+    width: 70%;
+    margin: auto;
+}
+
+.grid-column, .grip-data-column {
+    padding: 10px 0;
+    width: 25%;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.grid-column {
+    background-color: black;
+    color: white;
+}
+
+.grip-data-column {
+    background-color: aliceblue;
+}
