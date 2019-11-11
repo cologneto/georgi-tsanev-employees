@@ -38,7 +38,7 @@ const returnFormatedDate = (date, dateSeparator) => {
     }
 
     if(dateSeparator === separatorSlash) {
-        return month + dateSeparator +  + dateSepdayOfMontharator + fullYear
+        return month + dateSeparator + dayOfMonth + dateSeparator + fullYear
     }
 }
 
@@ -58,8 +58,8 @@ const generateEmployeesArr = (separator) => {
     let arr = [];
 
     for (let i = 1; i <= numberOfEmp; i++) {
-        const dateFrom = returnFormatedDate(generateDates(getRandomInt(50,100)), separator)
-        const dateTo   = returnFormatedDate(generateDates(getRandomInt(1, 50)), separator)
+        const dateFrom = returnFormatedDate(generateDates(getRandomInt(150, 200)), separator)
+        const dateTo   = returnFormatedDate(generateDates(getRandomInt(100, 150)), separator)
 
         arr[arr.length] = new RowData(i, getRandomInt(1, numberOfProj), dateFrom, dateTo)
     }

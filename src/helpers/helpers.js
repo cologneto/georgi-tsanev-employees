@@ -36,8 +36,15 @@ const daysTogether = (rowX, rowY) => {
     } else {
         endDate = endY
     }
+    let daysTogether;
 
-    return new ResultData(emplXID, emplYID, projID, millisToDays(endDate - startDate))
+    if(millisToDays(endDate - startDate) < 0) {
+        daysTogether = 0
+    } else {
+        daysTogether =millisToDays(endDate - startDate)
+    }
+
+    return new ResultData(emplXID, emplYID, projID, +daysTogether)
 }
 
 const nullToTodayDate = (separator) => {
@@ -151,6 +158,8 @@ const createResultArray = (lines) => {
             }
         })
     })
+
+    console.log(resultArr)
 
     return resultArr
 }
