@@ -159,8 +159,6 @@ const createResultArray = (lines) => {
         })
     })
 
-    console.log(resultArr)
-
     return resultArr
 }
 
