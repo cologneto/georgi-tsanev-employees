@@ -38,7 +38,7 @@ class FileUploader extends Component{
         if(isTxtFile) {
             reader.readAsText(input.files[0])
         } else {
-            alert("Please select .txt file!")
+            alert(errorMsg)
             input.value = ""
         }
     }
