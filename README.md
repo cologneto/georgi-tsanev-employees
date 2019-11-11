@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 # Georgi Tsanev Employees
-A simple application for getting two employees that worked together on a project most time.
+A simple application for getting two employees that worked together on a project most time from an example text file with lines.
 
 ## Available Scripts
 
