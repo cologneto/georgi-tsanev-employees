@@ -3,7 +3,10 @@ import ResultData from './../models/resultData'
 
 const separatorDash = "-"
 const separatorSlash = "/"
-
+const dateFormat1 = "dd-mm-yyyy"
+const dateFormat2 = "mm/dd/yyyy"
+const nullStr = "NULL"
+const dateFromStr = 'dateFrom'
 
 // convert milliseconds to days
 const millisToDays = (millis) => {
@@ -38,11 +41,11 @@ const daysTogether = (rowX, rowY) => {
 }
 
 const nullToTodayDate = (separator) => {
-    var today = new Date()
-    var dd = today.getDate()
-    var mm = today.getMonth() + 1
+    const today = new Date()
+    const yyyy = today.getFullYear()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1
 
-    var yyyy = today.getFullYear()
     if (dd < 10) {
         dd = '0' + dd;
     }
@@ -54,7 +57,6 @@ const nullToTodayDate = (separator) => {
     } else {
         return mm + separator + dd + separator + yyyy
     }
-
 }
 
 //converting string to date with given format
@@ -88,7 +90,6 @@ const dynamicSort = (property) => {
 // creates an array for each project in the text file
 const makeArraysForEachProject = (dataTable) => {
     // pop the last element, because of the empty last row in the generated file
-    console.log(dataTable[dataTable.length - 1]);
 
     if(dataTable[dataTable.length - 1].dateFrom === undefined){
         dataTable.pop()
@@ -103,25 +104,23 @@ const makeArraysForEachProject = (dataTable) => {
             separator = separatorDash
         }
 
-        console.log(separator)
-        if(v.dateTo.toUpperCase() === "NULL") {
+        if(v.dateTo.toUpperCase() === nullStr) {
             v.dateTo = nullToTodayDate(separator)
-            console.log(nullToTodayDate(separator));
         }
 
         if(separator === separatorDash) {
-            v.dateTo   = new Date(stringToDate(v.dateTo,"dd-mm-yyyy", "-"))
-            v.dateFrom = new Date(stringToDate(v.dateFrom,"dd-mm-yyyy", "-"))
+            v.dateTo   = new Date(stringToDate(v.dateTo,dateFormat1, separatorDash))
+            v.dateFrom = new Date(stringToDate(v.dateFrom,dateFormat1, separatorDash))
         } else {
-            v.dateFrom = new Date(stringToDate(v.dateFrom,"mm/dd/yyyy", "/"))
-            v.dateTo   = new Date(stringToDate(v.dateTo,"mm/dd/yyyy", "/"))
+            v.dateFrom = new Date(stringToDate(v.dateFrom,dateFormat2, separatorSlash))
+            v.dateTo   = new Date(stringToDate(v.dateTo,dateFormat2, separatorSlash))
         }
     })
     const projectIDArr = dataTable.map((v) => v.projectID)
     const unique = [... new Set(projectIDArr)]
 
     // sorting the table by date
-    dataTable.sort(dynamicSort('dateFrom'))
+    dataTable.sort(dynamicSort(dateFromStr))
     let arrOfArr = []
     unique.forEach((el) => {
         arrOfArr.push(dataTable.filter((v) => v.projectID === el))
@@ -158,5 +157,5 @@ const createResultArray = (lines) => {
 
 export default {
     dynamicSort: dynamicSort,
-    createResultArray: createResultArray
+    createResultArray: createResultArray,
 }

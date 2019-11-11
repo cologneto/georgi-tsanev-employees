@@ -5,7 +5,6 @@ class ResultData {
         this.projectID = projectID
         this.daysWorked = daysWorked
     }
-
 }
 
 export default ResultData
