@@ -1,6 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Georgi Tsanev Employees
+A simple application for getting two employees that worked together on a project most time.
 
 ## Available Scripts
+
+After checkout in the project directory you have to run:
+
+### `npm install`
 
 In the project directory, you can run:
 
