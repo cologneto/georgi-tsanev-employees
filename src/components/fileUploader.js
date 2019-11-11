@@ -5,6 +5,7 @@ import DataGrid from "./dataGrid";
 
 const daysWorked = "daysWorked"
 const splipRegEx = /[\r\n]+/g
+const errorMsg = "Please select .txt file."
 
 class FileUploader extends Component{
     constructor(){
@@ -32,7 +33,14 @@ class FileUploader extends Component{
                 resultData: resultArray[resultArray.length - 1]
             })
         };
-        reader.readAsText(input.files[0])
+
+        const isTxtFile = Helpers.fileHasExtension(input, [".txt"]);
+        if(isTxtFile) {
+            reader.readAsText(input.files[0])
+        } else {
+            alert("Please select .txt file!")
+            input.value = ""
+        }
     }
 
     render () {

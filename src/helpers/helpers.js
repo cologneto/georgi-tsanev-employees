@@ -155,7 +155,13 @@ const createResultArray = (lines) => {
     return resultArr
 }
 
+const fileHasExtension = (input, exts) => {
+    const fileName = input.value;
+    return (new RegExp('(' + exts.join('|').replace(/\./g, '\\.') + ')$')).test(fileName);
+}
+
 export default {
     dynamicSort: dynamicSort,
     createResultArray: createResultArray,
+    fileHasExtension: fileHasExtension
 }
